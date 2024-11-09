@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"log"
 
-	"opway/serial"
+	"github.com/Owxindong/serial"
 )
 
 func ExamplePort_SetMode() {

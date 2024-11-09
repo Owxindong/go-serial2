@@ -1,4 +1,4 @@
-module opway/serial
+module github.com/Owxindong/serial
 
 go 1.17
 

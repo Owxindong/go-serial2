@@ -16,7 +16,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"opway/serial/unixutils"
+	"github.com/Owxindong/serial/unixutils"
 
 	"golang.org/x/sys/unix"
 )

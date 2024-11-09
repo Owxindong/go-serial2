@@ -11,7 +11,7 @@ import (
 	"log"
 	"time"
 
-	"opway/serial"
+	"github.com/Owxindong/serial"
 )
 
 func ExamplePort_GetModemStatusBits() {

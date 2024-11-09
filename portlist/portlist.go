@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"log"
 
-	"opway/serial/enumerator"
+	"github.com/Owxindong/serial/enumerator"
 )
 
 func main() {

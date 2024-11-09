@@ -11,7 +11,7 @@ import (
 	"log"
 	"strings"
 
-	"opway/serial"
+	"github.com/Owxindong/serial"
 )
 
 // This example prints the list of serial ports and use the first one

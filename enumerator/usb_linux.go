@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"opway/serial"
+	"github.com/Owxindong/serial"
 )
 
 func nativeGetDetailedPortsList() ([]*PortDetails, error) {
