@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"log"
 
-	"go.bug.st/serial/enumerator"
+	"opway/serial/enumerator"
 )
 
 func ExampleGetDetailedPortsList() {

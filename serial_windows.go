@@ -274,13 +274,14 @@ func (port *windowsPort) GetModemStatusBits() (*ModemStatusBits, error) {
 	}, nil
 }
 
+// 这里修改成 全部外部设置
 func (port *windowsPort) SetReadTimeout(timeout time.Duration) error {
 	commTimeouts := &windows.CommTimeouts{
-		ReadIntervalTimeout:         0xFFFFFFFF,
-		ReadTotalTimeoutMultiplier:  0xFFFFFFFF,
-		ReadTotalTimeoutConstant:    0xFFFFFFFE,
-		WriteTotalTimeoutConstant:   0,
-		WriteTotalTimeoutMultiplier: 0,
+		ReadIntervalTimeout:         0,
+		ReadTotalTimeoutMultiplier:  1,
+		ReadTotalTimeoutConstant:    2000,
+		WriteTotalTimeoutConstant:   2000,
+		WriteTotalTimeoutMultiplier: 1,
 	}
 	if timeout != NoTimeout {
 		ms := timeout.Milliseconds()
@@ -288,6 +289,7 @@ func (port *windowsPort) SetReadTimeout(timeout time.Duration) error {
 			return &PortError{code: InvalidTimeoutValue}
 		}
 		commTimeouts.ReadTotalTimeoutConstant = uint32(ms)
+		commTimeouts.WriteTotalTimeoutConstant = uint32(ms)
 	}
 
 	if err := windows.SetCommTimeouts(port.handle, commTimeouts); err != nil {
@@ -296,6 +298,29 @@ func (port *windowsPort) SetReadTimeout(timeout time.Duration) error {
 
 	return nil
 }
+
+// func (port *windowsPort) SetReadTimeout(timeout time.Duration) error {
+// 	commTimeouts := &windows.CommTimeouts{
+// 		ReadIntervalTimeout:         0xFFFFFFFF,
+// 		ReadTotalTimeoutMultiplier:  0xFFFFFFFF,
+// 		ReadTotalTimeoutConstant:    0xFFFFFFFE,
+// 		WriteTotalTimeoutConstant:   0,
+// 		WriteTotalTimeoutMultiplier: 0,
+// 	}
+// 	if timeout != NoTimeout {
+// 		ms := timeout.Milliseconds()
+// 		if ms > 0xFFFFFFFE || ms < 0 {
+// 			return &PortError{code: InvalidTimeoutValue}
+// 		}
+// 		commTimeouts.ReadTotalTimeoutConstant = uint32(ms)
+// 	}
+
+// 	if err := windows.SetCommTimeouts(port.handle, commTimeouts); err != nil {
+// 		return &PortError{code: InvalidTimeoutValue, causedBy: err}
+// 	}
+
+// 	return nil
+// }
 
 func (port *windowsPort) Break(d time.Duration) error {
 	if err := windows.SetCommBreak(port.handle); err != nil {
